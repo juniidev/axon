@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
-import {
-  createLink,
-  getLinksByUser,
-  deleteLink,
-  updateLinkOrder,
-} from '../services/links';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../services/firebase';
+import { createLink, getLinksByUser, updateLinkOrder } from '../services/links';
 
 type Link = {
   id: string;
@@ -45,11 +42,13 @@ export const useLinks = (userId: string | undefined) => {
   };
 
   const removeLink = async (id: string) => {
-    await deleteLink(id);
+    try {
+      await deleteDoc(doc(db, 'links', id));
 
-    if (!userId) return;
-    const updated = await getLinksByUser(userId);
-    setLinks(updated as Link[]);
+      setLinks((prev) => prev.filter((l) => l.id !== id));
+    } catch (error) {
+      console.error('Error deleting link:', error);
+    }
   };
 
   const reorderLinks = async (newLinks: Link[]) => {
