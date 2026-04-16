@@ -1,30 +1,37 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../services/firebase";
-import { LinkCard } from "../components/molecules/LinkCard";
-import { BentoLayout } from "../layouts/BentoLayout";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../services/firebase';
+import { LinkCard } from '../components/molecules/LinkCard';
+import { BentoLayout } from '../layouts/BentoLayout';
+
+type Link = {
+  id: string;
+  title: string;
+  url: string;
+  userId: string;
+  order?: number;
+};
 
 export const PublicProfile = () => {
   const { username } = useParams();
-  const [links, setLinks] = useState<any[]>([]);
+  const [links, setLinks] = useState<Link[]>([]);
 
   useEffect(() => {
     const fetchLinks = async () => {
       if (!username) return;
 
-      const q = query(
-        collection(db, "links"),
-        where("userId", "==", username)
-      );
+      const q = query(collection(db, 'links'), where('userId', '==', username));
 
       const snap = await getDocs(q);
 
       setLinks(
-        snap.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
+        snap.docs
+          .map((doc) => {
+            const data = doc.data() as Omit<Link, 'id'>;
+            return { id: doc.id, ...data };
+          })
+          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
       );
     };
 

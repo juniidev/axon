@@ -1,5 +1,4 @@
 import { BentoLayout } from "../layouts/BentoLayout";
-import { BentoGrid } from "../layouts/BentoGrid";
 import { BentoCard } from "../components/atoms/BentoCard";
 import { LinkCard } from "../components/molecules/LinkCard";
 import { CreateLinkForm } from "../components/molecules/CreateLinkForm";
