@@ -1,6 +1,7 @@
 import { BentoLayout } from './layouts/BentoLayout';
 import { BentoGrid } from './layouts/BentoGrid';
 import { BentoCard } from './components/atoms/BentoCard';
+import { LinkCard } from './components/molecules/LinkCard';
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
           Perfil
         </BentoCard>
 
-        <BentoCard>Link 1</BentoCard>
-        <BentoCard>Link 2</BentoCard>
+        <LinkCard title="GitHub" url="https://github.com" />
+        <LinkCard title="Twitter" url="https://twitter.com" />
 
         <BentoCard className="col-span-2">
           Contenido destacado

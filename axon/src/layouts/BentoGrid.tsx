@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 type Props = {
   children: ReactNode;
@@ -6,17 +7,27 @@ type Props = {
 
 export const BentoGrid = ({ children }: Props) => {
   return (
-    <div
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.08,
+          },
+        },
+      }}
       className="
-      grid 
-      grid-cols-1 
-      sm:grid-cols-2 
-      md:grid-cols-3 
-      auto-rows-[150px] 
-      gap-4
-    "
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        md:grid-cols-3 
+        auto-rows-[150px] 
+        gap-4
+      "
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
