@@ -1,52 +1,25 @@
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { BentoLayout } from './layouts/BentoLayout';
-import { BentoCard } from './components/atoms/BentoCard';
-import { LinkCard } from './components/molecules/LinkCard';
-import { CreateLinkForm } from './components/molecules/CreateLinkForm';
-import { useAuth } from './hooks/useAuth';
-import { useLinks } from './hooks/useLinks';
-import { SortableGrid } from './components/organisms/SortableGrid';
+import { Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AuthPage } from "./pages/AuthPage";
+import { Dashboard } from "./pages/Dashboard";
+import { PublicProfile } from "./pages/PublicProfile";
 
 function App() {
   return (
-    <ProtectedRoute>
-      <MainApp />
-    </ProtectedRoute>
-  );
-}
+    <Routes>
+      <Route path="/" element={<AuthPage />} />
 
-function MainApp() {
-  const { user, loading } = useAuth();
-  const { links, reorderLinks, addLink, removeLink } = useLinks(user?.uid);
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
 
-  if (loading) return <div className="text-white p-6">Loading...</div>;
-
-  return (
-    <BentoLayout>
-      <SortableGrid items={links} setItems={reorderLinks}>
-        {/* PERFIL */}
-        <BentoCard className="col-span-2 row-span-2">Perfil Usuario</BentoCard>
-
-        {/* FORM (SOLO AQUÍ) */}
-        <BentoCard>
-          <CreateLinkForm onAdd={addLink} />
-        </BentoCard>
-
-        {/* LINKS */}
-        {links.map((link) => (
-          <LinkCard
-            key={link.id}
-            id={link.id}
-            title={link.title}
-            url={link.url}
-            onDelete={() => removeLink(link.id)}
-          />
-        ))}
-
-        {/* EXTRA */}
-        <BentoCard className="col-span-2">Contenido destacado</BentoCard>
-      </SortableGrid>
-    </BentoLayout>
+      <Route path="/:username" element={<PublicProfile />} />
+    </Routes>
   );
 }
 
