@@ -18,14 +18,14 @@ export const BentoGrid = ({ children }: Props) => {
           },
         },
       }}
-      className="
-        grid 
-        grid-cols-1 
-        sm:grid-cols-2 
-        md:grid-cols-3 
-        auto-rows-[150px] 
-        gap-4
-      "
+    className="
+  grid 
+  grid-cols-1 
+  sm:grid-cols-2 
+  md:grid-cols-3 
+  auto-rows-[180px] 
+  gap-5
+"
     >
       {children}
     </motion.div>
