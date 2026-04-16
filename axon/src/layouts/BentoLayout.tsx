@@ -7,9 +7,7 @@ type Props = {
 export const BentoLayout = ({ children }: Props) => {
   return (
     <main className="min-h-screen bg-neutral-950 text-white p-6">
-      <div className="max-w-6xl mx-auto">
-        {children}
-      </div>
+      <div className="max-w-6xl mx-auto">{children}</div>
     </main>
   );
 };

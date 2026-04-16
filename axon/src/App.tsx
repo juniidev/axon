@@ -10,13 +10,8 @@ function App() {
           Perfil
         </BentoCard>
 
-        <BentoCard>
-          Link 1
-        </BentoCard>
-
-        <BentoCard>
-          Link 2
-        </BentoCard>
+        <BentoCard>Link 1</BentoCard>
+        <BentoCard>Link 2</BentoCard>
 
         <BentoCard className="col-span-2">
           Contenido destacado
