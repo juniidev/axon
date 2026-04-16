@@ -1,7 +1,11 @@
-import { DndContext, closestCenter } from "@dnd-kit/core";
-import { arrayMove, SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
-import { type ReactNode } from "react";
-import type { DragEndEvent } from "@dnd-kit/core";
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { type ReactNode } from 'react';
+import type { DragEndEvent } from '@dnd-kit/core';
 
 type Item = {
   id: string;
@@ -31,7 +35,7 @@ export const SortableGrid = <T extends Item>({
       (item, index) => ({
         ...item,
         order: index,
-      })
+      }),
     );
 
     setItems(newArray);

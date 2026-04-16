@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { createLink, getLinksByUser, deleteLink } from '../services/links';
+import {
+  createLink,
+  getLinksByUser,
+  deleteLink,
+  updateLinkOrder,
+} from '../services/links';
 
 type Link = {
   id: string;
@@ -47,9 +52,18 @@ export const useLinks = (userId: string | undefined) => {
     setLinks(updated as Link[]);
   };
 
+  const reorderLinks = async (newLinks: Link[]) => {
+    setLinks(newLinks);
+
+    // persistir en Firestore
+    await Promise.all(
+      newLinks.map((link, index) => updateLinkOrder(link.id, index)),
+    );
+  };
+
   return {
     links,
-    setLinks, // ← IMPORTANTE
+    reorderLinks,
     addLink,
     removeLink,
   };
